@@ -1,10 +1,13 @@
-import unittest
+import unittest, math
 
 # write a method that takes in a number and returns it as a formatted string 
 # for USD. Numbers should be rounded to nearest hundreth
 
 def currency(value):
-    pass
+    decimal, num = math.modf(value)
+    num = int(num)
+    decimal = int(round(decimal, 2)*100)
+    return(f'${num}.{decimal}')
 
 ########################### TESTS ##############################################################
 class TestMethods(unittest.TestCase):

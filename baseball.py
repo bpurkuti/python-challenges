@@ -1,4 +1,4 @@
-import unittest
+import unittest, math
 
 # in baseball an inning has 3 outs (technically 6 because it is two half innings)
 # a pitcher who has pitched 2 innings has been in the game for 6 outs
@@ -8,10 +8,25 @@ import unittest
 # write a function that takes in the innings and gives back the total outs
 
 class InvalidInnning(Exception):
-    pass
+    try:
+        Exception
+    except Exception as e:
+        print(e)
+        
+        
 
 def inning_to_outs(innings):
-    pass
+    
+    
+    if innings == int(innings):
+        return innings*3
+    else:
+        # deci = innings%1
+        # notDeci = innings//1
+        deci, notDeci = math.modf(innings)
+        
+        #rounding down because turning decimal to point to a integer caused some floating number problem
+        return (notDeci *3 + deci*10)//1
 
 ########################### TESTS ##############################################################
 class TestMethods(unittest.TestCase):
@@ -31,12 +46,14 @@ class TestMethods(unittest.TestCase):
     def test_outs_4(self):
         try:
             inning_to_outs(4.15)
+            assert False
         except InvalidInnning as e:
             assert e.message == 'Invalid intermediary value: 4.15'
     
     def test_outs_5(self):
         try:
             inning_to_outs(-6)
+            assert False
         except InvalidInnning as e:
             assert e.message == 'Negative value not allowed'
 
